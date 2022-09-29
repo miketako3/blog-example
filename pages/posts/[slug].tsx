@@ -41,7 +41,7 @@ export default function Post({ post, morePosts, preview }: Props) {
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            <article className="mb-32">
+            <article className="pb-32">
               <Head>
                 <title>
                   {post.title} | Next.js Blog Example with {CMS_NAME}
