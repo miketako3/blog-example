@@ -11,6 +11,8 @@ import Head from 'next/head'
 import { CMS_NAME } from '../../lib/constants'
 import markdownToHtml from '../../lib/markdownToHtml'
 import type PostType from '../../interfaces/post'
+import initTwitterScriptInner from "zenn-embed-elements/lib/init-twitter-script-inner";
+import {useEffect} from "react";
 
 type Props = {
   post: PostType
@@ -23,8 +25,16 @@ export default function Post({ post, morePosts, preview }: Props) {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
+  useEffect(() => {
+    import('zenn-embed-elements');
+  }, []);
   return (
     <Layout preview={preview}>
+      <script
+          dangerouslySetInnerHTML={{
+            __html: initTwitterScriptInner
+          }}
+      />
       <Container>
         <Header />
         {router.isFallback ? (
