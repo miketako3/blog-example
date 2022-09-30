@@ -45,3 +45,19 @@ export function getAllPosts(fields: string[] = []) {
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
   return posts
 }
+
+export function getPostsByTag(tag: string, fields: string[] = []) {
+  const slugs = getPostSlugs()
+  return slugs
+  .map((slug) =>  getPostBySlug(slug, fields))
+  .filter((post) => post.tags.includes(tag))
+  .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+}
+
+export function getAllTags() {
+  const allPostTags = getAllPosts(['tags'])
+  .flatMap((post) => post.tags)
+  .sort()
+
+  return Array.from(new Set(allPostTags))
+}
